@@ -4,13 +4,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Recopilación de datos del formulario principal
     $cliente = $_POST['nombre'];
-    $direccion = $_POST['direccion'];
+    $calle = $_POST['calle'];
+    $estado = $_POST['estado'];
+    $codigo_postal = $_POST['codigo_postal'];
     $fecha_emision = $_POST['fecha_emision'];
     $fecha_vencimiento = $_POST['fecha_vencimiento'];
     $total = $_POST['total'];
 
     // Inserción de la factura principal
-    $sql_factura = "INSERT INTO Facturas (Cliente, Direccion, Fecha_Emision, Fecha_Vencimiento, Total) VALUES ('$cliente', '$direccion', '$fecha_emision', '$fecha_vencimiento', '$total')";
+    $sql_factura = "INSERT INTO facturas (Cliente, Calle, Estado, Codigo_Postal, Fecha_Emision, Fecha_Vencimiento, Total) VALUES ('$cliente', '$calle','$estado','$codigo_postal', '$fecha_emision', '$fecha_vencimiento', '$total')";
 
     if ($conn->query($sql_factura) === TRUE) {
         // Obtención del ID de la factura recién insertada
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $precio_unitario1= $_POST['precio'];
         $importe1= $_POST['importe'];
         // Inserción del detalle de la factura
-        $sql_detalle = "INSERT INTO Contenido_Facturas (Factura_ID, Descripcion, Precio_Unitario, Cantidad, Importe) VALUES ($factura_id, '$descripcion1', $precio_unitario1, $cantidad1, $importe1)";
+        $sql_detalle = "INSERT INTO contenido_facturas (Factura_ID, Descripcion, Precio_Unitario, Cantidad, Importe) VALUES ($factura_id, '$descripcion1', $precio_unitario1, $cantidad1, $importe1)";
         $conn->query($sql_detalle);
 
         for ($i = 1; $i < $contadorFilas; $i++) {
@@ -33,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $importe = $_POST["importe_$i"];
 
             // Inserción del detalle de la factura
-            $sql_detalle = "INSERT INTO Contenido_Facturas (Factura_ID, Descripcion, Precio_Unitario, Cantidad, Importe) VALUES ($factura_id, '$descripcion', $precio_unitario, $cantidad, $importe)";
+            $sql_detalle = "INSERT INTO contenido_facturas (Factura_ID, Descripcion, Precio_Unitario, Cantidad, Importe) VALUES ($factura_id, '$descripcion', $precio_unitario, $cantidad, $importe)";
             $conn->query($sql_detalle);
         }
 
