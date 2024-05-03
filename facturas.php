@@ -9,17 +9,17 @@
 
 <body class="bg-gray-100">
 
-  <nav class="bg-gray-800 text-white p-4">
+<nav class="bg-gray-800 text-white py-1.5 px-4">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <div>
-        <a href="./index.php" class="text-white">Crear factura</a>
-        <a href="./facturas.php" class="text-white ml-4">Facturas</a>
-      </div>
-      <div>
-        <!-- Aquí puedes agregar el contenido de tu logo -->
-      </div>
+        <div>
+            <a href="./index.php" class="text-white">Crear factura</a>
+            <a href="./facturas.php" class="text-white ml-4">Facturas</a>
+        </div>
+        <div>
+            <img src="./logo.png" alt="" class="w-14 h-auto">
+        </div>
     </div>
-  </nav>
+</nav>
 
   <div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
     <h1 class="text-2xl font-bold mb-4">Lista de facturas</h1>
@@ -42,7 +42,7 @@
               include './backend/connection.php';
 
               // Consultar las facturas
-              $sql = "SELECT * FROM Facturas";
+              $sql = "SELECT * FROM facturas";
               $result = $conn->query($sql);
 
               // Mostrar las filas de la tabla con los datos de las facturas
@@ -55,9 +55,7 @@
                   echo "<td class='py-2 px-4'>" . $row["Fecha_Vencimiento"] . "</td>";
                   echo "<td class='py-2 px-4'>$" . $row["Total"] . "</td>";
                   echo "<td class='py-2 px-4'>
-                         <button id='openModal' class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>Open Modal</button>                        |
-                        <a href='#' class='text-blue-500 hover:underline  download-link' data-id='" . $row["ID"] . "'>Descargar</a>
-                        </td>";
+                  <a href='ver_factura.php?id=" . $row["ID"] . "' class='text-blue-500 hover:underline  download-link'>Ver factura</a>                  </td>";
                   echo "</tr>";
                 }
               } else {
@@ -72,6 +70,7 @@
     </div>
   </div>
   <?php
+include './backend/connection.php';
 if (isset($_GET['id'])) {
     $factura_id = $_GET['id'];
     // Consulta para obtener los datos de la factura y su contenido
@@ -123,7 +122,7 @@ if (isset($_GET['id'])) {
         <?php
         if (isset($_GET['id'])) {
           $factura_id = $_GET['id'];
-          $sql_detalle = "SELECT * FROM Contenido_Facturas WHERE Factura_ID = $factura_id";
+          $sql_detalle = "SELECT * FROM contenido_facturas WHERE Factura_ID = $factura_id";
           $result_detalle = $conn->query($sql_detalle);
           $total = 0;
           if ($result_detalle->num_rows > 0) {
@@ -172,12 +171,15 @@ if (isset($_GET['id'])) {
       <div class="text-gray-700 mr-2">Total:</div>
       <div class="text-gray-700 font-bold text-xl">$<?php echo $total_final ?></div>
     </div>
-    
+    <div class="mt-6 flex justify-end">
+      <button id="closeModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        Cerrar
+      </button>
     </div>
   </div>
 </div>
 
-<?php
+    <?php
                 }
     ?>
 <?php
@@ -188,25 +190,36 @@ if (isset($_GET['id'])) {
 }
 ?>
 <div class="mt-6 flex justify-end">
-      <button id="closeModal" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-        Cerrar
-      </button>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".openModal").forEach(button => {
-    button.addEventListener("click", function() {
-      document.getElementById("modal").classList.remove("hidden");
+      
+
+      <script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Obtener todos los botones con la clase "openModalBtn"
+  var openModalBtns = document.querySelectorAll(".openModalBtn");
+
+  // Agregar un evento de clic a cada botón
+  openModalBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      // Obtener el ID de la fila de la tabla
+      var id = this.closest("tr").querySelector(".py-2.px-4").textContent;
+      // Abrir el modal correspondiente con el ID
+      document.getElementById("modal-" + id).classList.remove("hidden");
     });
   });
 
-    document.getElementById("closeModal").addEventListener("click", function() {
-        document.getElementById("modal").classList.add("hidden");
+  // Agregar evento de clic para cerrar el modal
+  var closeModalBtns = document.querySelectorAll(".closeModalBtn");
+  closeModalBtns.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      // Obtener el ID del modal
+      var modalId = this.closest(".modal").id;
+      // Cerrar el modal
+      document.getElementById(modalId).classList.add("hidden");
     });
+  });
 });
-
- 
- 
 </script>
+
 
 </body>
 </html>
