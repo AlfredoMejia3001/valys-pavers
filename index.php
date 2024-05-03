@@ -9,32 +9,43 @@
 </head>
 <body class="bg-gray-100">
 
-  <nav class="bg-gray-800 text-white p-4">
+<nav class="bg-gray-800 text-white py-1.5 px-4">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
-      <div>
-        <a href="./index.php" class="text-white">Crear factura</a>
-        <a href="./facturas.php" class="text-white ml-4">Facturas</a>
-      </div>
-      <div>
-        <!-- Aquí puedes agregar el contenido de tu logo -->
-      </div>
+        <div>
+            <a href="./index.php" class="text-white">Crear factura</a>
+            <a href="./facturas.php" class="text-white ml-4">Facturas</a>
+        </div>
+        <div>
+            <img src="./logo.png" alt="" class="w-14 h-auto">
+        </div>
     </div>
-  </nav>
+</nav>
 
-  <div class="max-w-4xl mx-auto py-8">
-    <div class="w-1/2 flex justify-center mb-8">
-      <img src="logo.png" alt="Logo de la empresa" class="size-28">
-    </div>
+<div class="max-w-4xl mx-auto py-8">
+<div class="max-w-4xl mx-auto py-8 flex justify-center items-center">
+    <img src="logo.png" alt="Logo de la empresa" class="w-28 h-auto">
+</div>
+
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="facturaForm" action="./backend/guardar_factura.php" method="POST">
       <!-- Facturar a -->
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Facturar a - Nombre</label>
         <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nombre" name="nombre" type="text" placeholder="Nombre">
       </div>
-      <div class="mb-6">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="direccion">Facturar a - Dirección</label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="direccion" name="direccion" type="text" placeholder="Dirección">
-      </div>
+      <div class="flex mb-4">
+          <div class="mr-4">
+            <label class="block text-gray-700 text-sm font-bold" >Calle</label>
+            <input class="shadow appearance-none border rounded w-35 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "  name="calle" type="text"  placeholder="Calle">
+          </div>
+          <div class="mr-4">
+            <label class="block text-gray-700 text-sm font-bold" ">Estado</label>
+            <input class="shadow appearance-none border rounded w-30 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "  type="text" name="estado" placeholder="Estado">
+          </div>
+          <div class="mr-4">
+            <label class="block text-gray-700 text-sm font-bold" >Código postal</label>
+            <p class="block text-gray-700 text-sm font-bold"><input class="shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " type="text" name="codigo_postal" placeholder="Código Postal"></p>
+          </div>
+        </div>
       <!-- Fecha -->
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-bold mb-2" for="fecha_emision">Fecha - Fecha de Emisión</label>
