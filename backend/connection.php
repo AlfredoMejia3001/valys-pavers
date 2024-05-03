@@ -2,9 +2,9 @@
 
 
     // Establecer la conexión con la base de datos
-    $servername = "localhost";
-    $username = "root";
-    $password = "root";
+    $servername = "valy.cb888im4e9ce.us-east-1.rds.amazonaws.com";
+    $username = "admin";
+    $password = "root2024";
     $dbname = "valyspavers";
 
     $conn = new mysqli($servername, $username, $password, $dbname);
